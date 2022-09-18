@@ -1,0 +1,16 @@
+version: '3.4'
+services:
+  myapp:
+    container_name: software-warehouse
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      args:
+        - PORT = 3000
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
+volumes:
+  ignore:
