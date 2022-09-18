@@ -12,7 +12,7 @@ const expect = chai.expect;
 // const should = chai.should();
 
 describe("/GET products", () => {
-  it("should GET all the products", () => {
+  it("should GET all the products", (done) => {
     chai
       .request(baseUrl)
       .get("/products")
@@ -23,10 +23,11 @@ describe("/GET products", () => {
         res.body.should.have.property('errors');
         res.body.errors.should.have.property('pages');
         res.body.errors.pages.should.have.property('kind').eql('required');
+        done();
       });
   });
 
-  it("should DELETE a product", () => {
+  it("should DELETE a product", (done) => {
     chai
       .request(baseUrl)
       .delete("/products/1")
@@ -38,6 +39,7 @@ describe("/GET products", () => {
         res.body.should.have.property('errors');
         res.body.errors.should.have.property('pages');
         res.body.errors.pages.should.have.property('kind').eql('required');
+        done();
       });
   });
 });
