@@ -19,10 +19,10 @@ describe("/GET products", () => {
       .end(function (err, res) {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('errors');
-        res.body.errors.should.have.property('pages');
-        res.body.errors.pages.should.have.property('kind').eql('required');
+        res.body.should.be.a("object");
+        res.body.should.have.property("errors");
+        res.body.errors.should.have.property("pages");
+        res.body.errors.pages.should.have.property("kind").eql("required");
         done();
       });
   });
@@ -32,14 +32,17 @@ describe("/GET products", () => {
       .request(baseUrl)
       .delete("/products/1")
       .end(function (err, res) {
-        console.log(err)
+        console.log(err);
         expect(err).to.be.null;
         expect(res).to.have.status(200);
-        res.body.should.be.a('object');
-        res.body.should.have.property('errors');
-        res.body.errors.should.have.property('pages');
-        res.body.errors.pages.should.have.property('kind').eql('required');
+        res.body.should.be.a("object");
+        res.body.should.have.property("errors");
+        res.body.errors.should.have.property("pages");
+        res.body.errors.pages.should.have.property("kind").eql("required");
         done();
       });
   });
+
+  // TODO: Repeatedly calling DELETE API on that resource will not change the outcome – however, 
+  // calling DELETE on a resource a second time will return a 404 (NOT FOUND) since it was already removed.
 });

@@ -1,17 +1,21 @@
 const express = require("express");
 const app = express();
+
 app.listen(3000, function () {
-console.log("listening on 3000");
+  console.log("listening on 3000");
 });
+
 app.get("/", (req, res) => {
-res.send("Users Shown");
+  res.send("Software Warehouse");
 });
-app.get("/delete", (req, res) => {
-res.send("Delete User");
+
+// * Get all products and quantity of each that is an available with the current inventory
+
+app.get("/products", (req, res) => {
+  res.status(200).json();
 });
-app.get("/update", (req, res) => {
-res.send("Update User");
-});
-app.get("/insert", (req, res) => {
-res.send("Insert User");
+
+// * Remove (Sell) a product and update the inventory accordingly
+app.get("/products/:id", (req, res) => {
+  res.status(200).json({ id: req.params.id });
 });
