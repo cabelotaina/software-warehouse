@@ -4,6 +4,7 @@
   "description": "software warehouse",
   "scripts": {
     "test:database": "mocha test/database.js",
+    "test:products": "mocha test/products.js",
     "test:api": "mocha test/products.js",
     "start:dev": "nodemon ./bin/www",
     "start:debug": "nodemon --inspect-brk=0.0.0.0:9229 --watch server ./bin/www",
