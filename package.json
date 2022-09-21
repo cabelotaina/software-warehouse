@@ -6,9 +6,8 @@
     "test:database": "mocha test/database.js",
     "test:products": "mocha test/products.js",
     "test:api": "mocha test/products.js",
-    "start:dev": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "start:debug": "nodemon --inspect-brk=0.0.0.0:9229 --watch server ./bin/www",
-    "start": "node index.js",
     "seed:inventory": "node ./api/bin/seed/inventory.js",
     "seed:products": "node ./api/bin/seed/products.js"
   },

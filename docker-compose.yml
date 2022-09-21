@@ -2,7 +2,7 @@ version: '3.9'
 services:
   mongo1:
     hostname: mongo1
-    # container_name: mongo1
+    container_name: mongo-db-1
     image: mongo
     expose:
       - 27017
@@ -10,12 +10,12 @@ services:
       - 30001:27017
     restart: always
     command: mongod --replSet my-mongo-set
-    # volumes:
-    #   - ./volumes/mongodb/mongo/data1/db:/data/db
-    #   - ./volumes/mongodb/mongo/data1/configdb:/data/configdb
+    volumes:
+      - ./volumes/mongodb/mongo/data1/db:/data/db
+      - ./volumes/mongodb/mongo/data1/configdb:/data/configdb
   mongo2:
     hostname: mongo2
-    # container_name: mongo2
+    container_name: mongo-db-2
     image: mongo
     expose:
       - 27017
@@ -23,12 +23,12 @@ services:
       - 30002:27017
     restart: always
     command: mongod --replSet my-mongo-set
-    # volumes:
-    #   - ./volumes/mongodb/mongo/data2/db:/data/db
-    #   - ./volumes/mongodb/mongo/data2/configdb:/data/configdb
+    volumes:
+      - ./volumes/mongodb/mongo/data2/db:/data/db
+      - ./volumes/mongodb/mongo/data2/configdb:/data/configdb
   mongo3:
     hostname: mongo3
-    # container_name: mongo3
+    container_name: mongo-db-3
     image: mongo
     expose:
       - 27017
@@ -36,13 +36,14 @@ services:
       - 30003:27017
     restart: always
     command: mongod --replSet my-mongo-set
-    # volumes:
-    #   - ./volumes/mongodb/mongo/data3/db:/data/db
-    #   - ./volumes/mongodb/mongo/data3/configdb:/data/configdb
+    volumes:
+      - ./volumes/mongodb/mongo/data3/db:/data/db
+      - ./volumes/mongodb/mongo/data3/configdb:/data/configdb
   mongoinit:
     image: mongo
+    container_name: mongo-init
     restart: "no"
-    command: ./entrypoint.sh
+    entrypoint: sh -c "sh entrypoint.sh"
     depends_on:
       - mongo1
       - mongo2

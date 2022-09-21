@@ -52,7 +52,7 @@ Use this command to run the the API tests:
 
 ## Debug
 
-For debug the code you can use the command changing the line `CMD npm run start:dev` of Dockerfile.dev to the line below:
+For debug the code you can use the command changing the line `CMD [ "pm2-runtime", "npm", "--", "start" ]` of Dockerfile.dev to the line below:
 
 ```json
     npm run start:debug
@@ -61,3 +61,13 @@ For debug the code you can use the command changing the line `CMD npm run start:
 Before this you can use google chrome to debug the code.
 
 * TODO: Is necessary test why is not working with vscode.
+
+## Atomic Transactions
+
+We are using sessions to improve the control the transactions with the inventory, it's why we need to use a replica set. Only in replica set is posible to use transactions on mongodb.
+
+## Problems
+
+* the var container_name on file `docker-compose.yml`is not working
+* if you have some trouble with the mongo replica set using the docker-compose, try to run the file `./entrypoint.sh`, it's create the replica set in the first mongo database.
+* Sometimes when you try to sell a product the system have problems with the transactions.

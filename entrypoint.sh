@@ -1,4 +1,4 @@
-docker exec -it application-source-code-mongo1-1 mongosh --eval '
+docker exec -it mongo-db-1 mongosh --eval '
       db = (new Mongo("localhost:27017")).getDB("test");
       config = { "_id" : "my-mongo-set",
       "members" : [
