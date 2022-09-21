@@ -2,8 +2,6 @@ const mongoose = require("mongoose");
 const Product = mongoose.model("Product");
 const Article = mongoose.model("Article");
 
-// const createHttpError = require("http-errors");
-
 const getStock = async (products) => {
   const productArticles = await Promise.all(
     products

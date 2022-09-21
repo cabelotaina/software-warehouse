@@ -21,7 +21,7 @@ var corsOptions = {
 };
 app.use(cors(corsOptions))
 
-require("./api/models/database");
+require("./api/database");
 const routesApi = require("./api/routes/index");
 
 app.use("/api", routesApi);
