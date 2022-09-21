@@ -1,6 +1,53 @@
-version: '3.4'
+version: '3.9'
 services:
-  myapp:
+  mongo1:
+    hostname: mongo1
+    # container_name: mongo1
+    image: mongo
+    expose:
+      - 27017
+    ports:
+      - 30001:27017
+    restart: always
+    command: mongod --replSet my-mongo-set
+    # volumes:
+    #   - ./volumes/mongodb/mongo/data1/db:/data/db
+    #   - ./volumes/mongodb/mongo/data1/configdb:/data/configdb
+  mongo2:
+    hostname: mongo2
+    # container_name: mongo2
+    image: mongo
+    expose:
+      - 27017
+    ports:
+      - 30002:27017
+    restart: always
+    command: mongod --replSet my-mongo-set
+    # volumes:
+    #   - ./volumes/mongodb/mongo/data2/db:/data/db
+    #   - ./volumes/mongodb/mongo/data2/configdb:/data/configdb
+  mongo3:
+    hostname: mongo3
+    # container_name: mongo3
+    image: mongo
+    expose:
+      - 27017
+    ports:
+      - 30003:27017
+    restart: always
+    command: mongod --replSet my-mongo-set
+    # volumes:
+    #   - ./volumes/mongodb/mongo/data3/db:/data/db
+    #   - ./volumes/mongodb/mongo/data3/configdb:/data/configdb
+  mongoinit:
+    image: mongo
+    restart: "no"
+    command: ./entrypoint.sh
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+  software-warehouse:
     container_name: software-warehouse
     restart: always
     build:
@@ -8,9 +55,24 @@ services:
       dockerfile: Dockerfile.dev
       args:
         - PORT = 3000
+    environment:
+      NODE_ENV: development
+      MONGO_URI: mongodb://mongo1:27017,mongo2:27017,mongo3:27017/sw-development?replicaSet=my-mongo-set
+      PORT: 3000
     ports:
-      - 3000:3000
+      - "3000:3000"
+      - "9229:9229"
     volumes:
       - ./:/app
-volumes:
-  ignore:
+    links:
+      - mongo1
+      - mongo2
+      - mongo3
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3 
+# volumes:
+#   mongodb1-data:
+#   mongodb2-data:
+#   mongodb3-data:

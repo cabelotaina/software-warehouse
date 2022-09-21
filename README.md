@@ -1,68 +1,37 @@
-# Architectural Decision Record - ADR
+# README
 
-## Title
+This is a small piece of software warehouse, is a REST API using NodeJS (Express) and MongoDB.
 
-This decision defines the stack of technologies, techniques and another knowleges used at this project.
+The sistem use docker and docker compose for the development envronment and you can run the development envronment using:
 
-## Status
+```sh
+    docker-compose up --build --remove-orphans
+```
 
-Doing
+After run the application you need to import two files, the first with two products and the second with the inventory (four articles):
 
-## Date
+```sh
+    
+    docker compose run --rm software-warehouse npm run seed:products -d
+    docker compose run --rm software-warehouse npm run seed:inventory -d
 
-2022-09-14
+```
 
-## Context
+## Next steps
 
-...
+* pipeline to generate and registry the docker image
+* create a configuration repository for Argo CD
+* Configure kubernetes and Argo CD to read the configure repository
+* configure a mongo db replica set
+* Load test with jmeter
 
-## Decision
+## Debug
 
-...
+For debug the code you can use the command changing the line `CMD npm run start:dev` of Dockerfile.dev to the line below:
 
-## ops
+```json
+    npm run start:debug
+```
 
-- release
-- deploy
-- operate
-- monitor
+Before this you can use google chrome to debug the code.
 
-## technologies and techniques
-
-I'm using the [ingka technology radar](https://techradar.ingka.com/) to define what tools and platforms, practices and techniques, languages and frameworks will match with ingka and my previous experience.
-
-- istio: What's this?
-
-### Tools & Platforms
-
-- kubernets
-- jmeter
-- docker
-
-### Data Management & Integration
-
-- CloudSQL Postgres
-- Redis: remote dictionary service, database, Google [CLOUD MEMORYSTORE](https://cloud.google.com/memorystore)
-
-### Practices & Techniques
-
-- Version control: fixed
-- logging standards: fixed
-
-- DevOps
-- Architecture Decision Records
-- Naming Conventions
-
-- GitOps
-
-- continuous delivery
-- continuous deployment
-- continuous integration
-
-### Languages & Frameworks
-
-- Javascript: NodeJS
-- Typescript
-- Golang
-- Kotlin
-- Quarkus

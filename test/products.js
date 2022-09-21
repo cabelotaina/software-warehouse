@@ -1,7 +1,8 @@
 process.env.NODE_ENV = "test";
 
-let chai = require("chai");
+const chai = require("chai");
 let chaiHttp = require("chai-http");
+const exp = require("constants");
 
 const baseUrl = "http://localhost:3000";
 
@@ -17,12 +18,7 @@ describe("/GET products", () => {
       .request(baseUrl)
       .get("/products")
       .end(function (err, res) {
-        expect(err).to.be.null;
         expect(res).to.have.status(200);
-        res.body.should.be.a("object");
-        res.body.should.have.property("errors");
-        res.body.errors.should.have.property("pages");
-        res.body.errors.pages.should.have.property("kind").eql("required");
         done();
       });
   });
@@ -32,17 +28,20 @@ describe("/GET products", () => {
       .request(baseUrl)
       .delete("/products/1")
       .end(function (err, res) {
-        console.log(err);
-        expect(err).to.be.null;
-        expect(res).to.have.status(200);
-        res.body.should.be.a("object");
-        res.body.should.have.property("errors");
-        res.body.errors.should.have.property("pages");
-        res.body.errors.pages.should.have.property("kind").eql("required");
+        expect(res).to.have.status(204);
         done();
       });
   });
 
-  // TODO: Repeatedly calling DELETE API on that resource will not change the outcome – however, 
-  // calling DELETE on a resource a second time will return a 404 (NOT FOUND) since it was already removed.
+
+  it("should receive 404 trying to DELETE a product", (done) => {
+    chai
+      .request(baseUrl)
+      .delete("/products/1")
+      .end(function (err, res) {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+
 });
