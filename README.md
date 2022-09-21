@@ -2,7 +2,7 @@
 
 This is a small piece of a software warehouse, is a REST API using NodeJS (Express) and MongoDB and some another libraries like mocha and chai for initial test purposes.
 
-The sistem use docker and docker compose for the development environment and you can run the development envronment using:
+The sistem use docker and docker compose for the development environment and you can run the development environment using:
 
 ```sh
     docker-compose up --build --remove-orphans
